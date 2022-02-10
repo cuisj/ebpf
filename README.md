@@ -34,10 +34,41 @@ eBPF 程序
     print(bpf.disassemble_func(func_name="show"))
     ```
 
+  - XDP
+
+    ```
+    #!/usr/bin/python3
+    
+    from bcc import BPF
+    
+    bpf_source = """
+    #include <linux/bpf.h>
+    #include <linux/in.h>
+    #include <linux/ip.h>
+    #include <linux/tcp.h>
+    
+    int show(struct xdp_md *ctx) {
+    	void *data = (void *)(long)ctx->data;
+    	void *data_end = (void *)(long)ctx->data_end;
+    	struct ethhdr *eth = data;
+    
+    	// 必须检查长度，否则视为越界访问
+    	if (data + 14 > data_end) {
+    		return XDP_DROP;
+    	}
+    
+    	bpf_trace_printk("%d", eth->h_proto);
+    
+    	return XDP_PASS;
+    }
+    """
+    
+    bpf = BPF(text = bpf_source)
+    print(bpf.disassemble_func(func_name="show"))
+    ```
+
 - TracePoint需挂载debugfs文件系统
 
   ```
   mount -t debugfs debugfs /sys/kernel/debug
   ```
-
-  

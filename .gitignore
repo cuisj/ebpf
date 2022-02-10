@@ -22,3 +22,4 @@ jump/jump
 netcap/netcap
 perf/perf
 printk/printk
+xdp/xdp
