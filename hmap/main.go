@@ -6,13 +6,13 @@ import (
 	"github.com/cilium/ebpf"
 	"github.com/cilium/ebpf/asm"
 	"github.com/cilium/ebpf/link"
-	"github.com/cilium/ebpf/rlimit"
+	//"github.com/cilium/ebpf/rlimit"
 )
 
 func main() {
-	if err := rlimit.RemoveMemlock(); err != nil {
-		log.Fatal(err)
-	}
+	//if err := rlimit.RemoveMemlock(); err != nil {
+	//	log.Fatal(err)
+	//}
 
 	prog, hmap, err := newMonitor()
 	if err != nil {
