@@ -23,3 +23,5 @@ netcap/netcap
 perf/perf
 printk/trace
 xdp/xdp
+uprobe/uprobe
+uprobe/bpf_bpfel*

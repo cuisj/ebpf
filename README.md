@@ -165,9 +165,17 @@ tree /sys/kernel/debug/tracing/events
 
   ```
   /usr/bin/cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-  echo 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' > /etc/profile.d/golang.sh
+  echo -e 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' > /etc/profile.d/golang.sh
+  echo -e 'export BPF_CLANG=clang\nexport BPF_CFLAGS="-O2 -g -Wall -Werror"' > /etc/profile.d/ebpf.sh
   go env -w GOPROXY=https://goproxy.cn
   
   yum install -y clang llvm
   ```
 
+- 反汇编
+
+  ```
+  llvm-objdump -d bpf_bpfel_x86.o
+  ```
+
+  
